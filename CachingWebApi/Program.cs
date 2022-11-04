@@ -1,7 +1,7 @@
 using System.Collections.Immutable;
 using CachingApi.Data;
 using Microsoft.EntityFrameworkCore;
-
+using CachingApi.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,6 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>(opt => opt.UseNpgsql(
   builder.Configuration.GetConnectionString("conn")
 ));
+
+builder.Services.AddScoped<ICacheService, CacheService>();
 
 var app = builder.Build();
 
